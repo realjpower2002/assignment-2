@@ -30,3 +30,41 @@ Block Ciphers ? :
 4 and 6
 
 """
+
+def xor_bytes(bytes_1,bytes_2):
+    if(len(bytes_1) != len(bytes_2)):
+        raise "Bytes 1 is a different length to Bytes 2"
+
+    xor_bytes = b''
+
+    for a,b in zip(bytes_1,bytes_2):
+        xor_bytes += (a ^ b).to_bytes(1,"little")
+
+    return xor_bytes
+
+
+
+print("New bytes (Short message) : ",xor_bytes(bytes.fromhex("8BDE08A6E0998853"),b"Hello th"))
+
+print("New bytes (Long  message) : ",xor_bytes(bytes.fromhex("8CD414B9AE99B51B"),b"Oops! I "))
+
+
+# We can try to produce the next block of ciphertext and see what we get.
+#
+# Let's see if we can get the value of the encrypted si-1 (the double encrypted
+# Initialization Vector)
+print("New bytes (Short message, 2) : ",xor_bytes(bytes.fromhex("59EAB40E7B99"),b"ere!!!"))
+
+print("New bytes (Short message, 7) : ",xor_bytes(bytes.fromhex("6EEEA9DD6FDA"),b"ere!!!"))
+
+print("New bytes (Long message,  5) : ",xor_bytes(bytes.fromhex("61E9BF886E8953B4"),b"just rea"))
+
+print("New bytes (Long message,  9) : ",xor_bytes(bytes.fromhex("96255A8DF39C4095"),b"just rea"))
+
+
+
+
+
+
+
+
